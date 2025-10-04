@@ -23,6 +23,7 @@ div %r9
 cmp $0, %rdx
 je is_not_prime
 
+# add 1 and check if n <= i becuase then we know its prime
 add $1, %r9
 cmp %r9, %r8
 jbe is_a_prime
@@ -38,9 +39,11 @@ mov $1, %rax
 ret
 
 largest_power_unsigned:
+# make var for accumulator and multiplier
 mov %rdi, %rax
 mov %rdi, %r8
 
+# keep multiplying %rax by %r8
 loop:
 mul %r8
 
@@ -64,7 +67,7 @@ mov $0, %rax
 ret
 
 dumb:
-
+# check to return
 cmp $0, %rdi
 je return_b_plus_1
 
@@ -75,6 +78,7 @@ je return_a
 push %rdi
 push %rsi
 
+# subtract for the recursive call
 sub $1, %rdi
 sub $1, %rsi
 
@@ -85,6 +89,7 @@ call dumb
 pop %rsi
 pop %rdi
 
+# a + a + b
 add %rdi, %rax
 add %rdi, %rax
 add %rsi, %rax
@@ -92,10 +97,12 @@ add %rsi, %rax
 ret
 
 return_b_plus_1:
+# b + 1 -> return
 add $1, %rsi
 mov %rsi, %rax
 ret
 
 return_a:
+# return a
 mov %rdi, %rax
 ret
